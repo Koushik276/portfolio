@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Koushik Pappula — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111627;
+    --border: #1e2a42;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --green: #34d399;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --highlight: #f0f9ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--accent2);
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 3rem 4rem;
+    text-align: center;
+  }
+  .hero-inner { max-width: 760px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent2);
+    margin-bottom: 2rem;
+    animation: fadeDown 0.6s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1.name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--highlight);
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+  h1.name span { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 1.2rem;
+    font-size: 1.15rem;
+    color: var(--muted);
+    font-weight: 300;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  .hero-desc {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-left: auto; margin-right: auto;
+    line-height: 1.7;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+
+  .hero-ctas {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeDown 0.6s 0.4s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.3); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-2px); }
+
+  .scroll-hint {
+    margin-top: 4rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeDown 0.6s 0.6s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* SECTION HEADER */
+  .section-label {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--highlight);
+    letter-spacing: -0.03em;
+  }
+  .section-line {
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  /* ABOUT */
+  #about { padding: 6rem 0; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .about-text p strong { color: var(--text); }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* SKILLS */
+  #skills { padding: 6rem 0; }
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .skill-group:hover { border-color: var(--accent); }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    color: var(--accent2);
+    font-size: 0.82rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    transition: background 0.2s;
+  }
+  .tag:hover { background: rgba(59,130,246,0.2); }
+
+  /* PROJECTS */
+  #projects { padding: 6rem 0; }
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .project-card:hover { border-color: transparent; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--highlight);
+    text-decoration: none;
+  }
+  .project-name:hover { color: var(--accent2); }
+  .project-badges { display: flex; gap: 0.5rem; }
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .badge-solo { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .badge-group { background: rgba(59,130,246,0.12); color: var(--accent2); border: 1px solid rgba(59,130,246,0.3); }
+  .project-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
+  .tech-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent2); }
+  .arrow { transition: transform 0.2s; }
+  .project-link:hover .arrow { transform: translateX(3px); }
+
+  /* EDUCATION */
+  #education { padding: 6rem 0; }
+  .edu-list { display: flex; flex-direction: column; gap: 1rem; }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--accent); }
+  .edu-left {}
+  .edu-inst { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--highlight); }
+  .edu-detail { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+  .edu-right { text-align: right; }
+  .edu-score {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .edu-year { font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* CONTACT */
+  #contact { padding: 6rem 0 4rem; }
+  .contact-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+  }
+  .contact-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--highlight);
+    margin-bottom: 0.75rem;
+  }
+  .contact-box p { color: var(--muted); margin-bottom: 2rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.25);
+    color: var(--accent2);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { background: rgba(59,130,246,0.2); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    position: relative; z-index: 1;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .about-grid, .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .edu-card { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .edu-right { text-align: left; }
+    .contact-box { padding: 2rem 1.5rem; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">KP</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open to Internships & Placements
+    </div>
+    <h1 class="name">Koushik <span>Pappula</span></h1>
+    <p class="hero-sub">
+      <strong>B.Tech CSE</strong> · IIIT Sri City · 2nd Year
+    </p>
+    <p class="hero-desc">
+      Building things with code — from databases to web interfaces.
+      Passionate about software engineering with a strong foundation in
+      DSA, OOP, and full-stack development.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/Koushik276" target="_blank" class="btn btn-outline">
+        GitHub ↗
+      </a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>2nd year Computer Science student</strong> at IIIT Sri City, Chittoor. I enjoy building software that solves real problems — whether that's a well-designed database, a clean web interface, or an algorithm from theory class brought to life.</p>
+        <p>My strongest areas are <strong>Java-based DSA</strong>, <strong>frontend web development</strong>, and <strong>database design</strong>. I like understanding how things work from the ground up.</p>
+        <p>Currently looking for <strong>internships and placement opportunities</strong> in software engineering.</p>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-val">4.19</div>
+          <div class="stat-label">B.Tech GPA</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">97%</div>
+          <div class="stat-label">Class X Score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">3</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">IIIT</div>
+          <div class="stat-label">Sri City</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Java</span>
+          <span class="tag">C</span>
+          <span class="tag">SQL</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Core CS</div>
+        <div class="skill-tags">
+          <span class="tag">Data Structures</span>
+          <span class="tag">Algorithms</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Theory of Computation</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Web Development</div>
+        <div class="skill-tags">
+          <span class="tag">Frontend Dev</span>
+          <span class="tag">Responsive Design</span>
+          <span class="tag">Full Stack (learning)</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Database</div>
+        <div class="skill-tags">
+          <span class="tag">SQL Queries</span>
+          <span class="tag">Schema Design</span>
+          <span class="tag">Normalization</span>
+          <span class="tag">Stored Procedures</span>
+          <span class="tag">Triggers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list">
+
+      <div class="project-card reveal">
+        <div class="project-top">
+          <a href="https://github.com/Koushik276" target="_blank" class="project-name">Finance Portfolio Management System</a>
+          <div class="project-badges"><span class="badge badge-group">Group · DBMS</span></div>
+        </div>
+        <p class="project-desc">A relational database system that helps investors track stocks, bonds, mutual funds, and crypto in one place. Designed 6 interrelated tables with full ER modelling, normalization to 3NF, and automated updates using stored procedures and triggers.</p>
+        <div class="project-tech">
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">DBMS</span>
+          <span class="tech-tag">Stored Procedures</span>
+          <span class="tech-tag">Triggers</span>
+          <span class="tech-tag">ER Modelling</span>
+        </div>
+        <a href="https://github.com/Koushik276" target="_blank" class="project-link">
+          View on GitHub <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top">
+          <a href="https://github.com/IIIT-Sricity-FSD-2024-2028/34_TeamLogistics" target="_blank" class="project-name">Team Logistics — Full Stack Web App</a>
+          <div class="project-badges"><span class="badge badge-group">Group · Web</span></div>
+        </div>
+        <p class="project-desc">A logistics management web application built as a full-stack group project. Led the frontend development — built UI components, layouts, and user interaction flows, collaborating with the team on end-to-end integration.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Full Stack</span>
+        </div>
+        <a href="https://github.com/IIIT-Sricity-FSD-2024-2028/34_TeamLogistics" target="_blank" class="project-link">
+          View on GitHub <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-top">
+          <a href="https://github.com/Koushik276/dfa_minimization" target="_blank" class="project-name">DFA Minimization Tool</a>
+          <div class="project-badges"><span class="badge badge-solo">Solo · TOC</span></div>
+        </div>
+        <p class="project-desc">Independently built a tool that minimizes Deterministic Finite Automata using the Myhill-Nerode (table-filling) algorithm. Identifies and merges equivalent states, demonstrating applied knowledge of formal language theory.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Java</span>
+          <span class="tech-tag">Theory of Computation</span>
+          <span class="tech-tag">DFA</span>
+          <span class="tech-tag">Algorithms</span>
+        </div>
+        <a href="https://github.com/Koushik276/dfa_minimization" target="_blank" class="project-link">
+          View on GitHub <span class="arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-list">
+      <div class="edu-card reveal">
+        <div class="edu-left">
+          <div class="edu-inst">IIIT Sri City, Chittoor</div>
+          <div class="edu-detail">B.Tech — Computer Science & Engineering · 2024–2028</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">4.19</div>
+          <div class="edu-year">GPA / 10 · 2nd Year</div>
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-left">
+          <div class="edu-inst">Class XII — Intermediate</div>
+          <div class="edu-detail">Board of Intermediate Education, Andhra Pradesh</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">79%</div>
+          <div class="edu-year">2024</div>
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-left">
+          <div class="edu-inst">Class X — SSC</div>
+          <div class="edu-detail">Board of Secondary Education, Andhra Pradesh</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">97%</div>
+          <div class="edu-year">2022</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-box reveal">
+      <h3>Let's Connect</h3>
+      <p>Open to internship and placement opportunities. Feel free to reach out!</p>
+      <div class="contact-links">
+        <a href="https://github.com/Koushik276" target="_blank" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:koushik@example.com" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email Me
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Koushik Pappula · IIIT Sri City · Roll No: S20240010174</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
